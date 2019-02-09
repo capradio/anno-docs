@@ -303,11 +303,11 @@ const renderHeadervDOM = function(data) {
 const renderHeaderContentsBefore = function(data) {
     return [
         h('a', {
-            href: 'http://npr.org'
+            href: 'http://capradio.org'
         }, h('img.header-logo', {
-            src: './assets/npr-color-100.png'
+            src: './assets/capradio-logo.png'
         })),
-        h('h2.header-title', 'NPR Live Annotation'),
+        h('h2.header-title', 'CapRadio Live Annotation'),
         h('p.header-info', 'Once the event has started, a live transcript will appear below.'),
     ]
 };
@@ -319,11 +319,11 @@ const renderHeaderContentsDuring = function(data) {
     var textEnd = (data.numAnnotations == 1) ? ' Annotation' : ' Annotations';
     return [
         h('a', {
-            href: 'http://npr.org'
+            href: 'http://capradio.org'
         }, h('img.header-logo', {
-            src: './assets/npr-color-100.png'
+            src: './assets/capradio-logo.png'
         })),
-        h('h2.header-title', 'NPR Live Annotation'),
+        h('h2.header-title', 'CapRadio Live Annotation'),
         h('p.header-info', [
             h('span.last-updated', ['Last updated: ' + data.updated]),
             h('span.num-annotations', data.numAnnotations + textEnd)
@@ -337,9 +337,9 @@ const renderHeaderContentsDuring = function(data) {
 const renderHeaderContentsAfter = function(data) {
     return [
         h('a', {
-            href: 'http://npr.org'
+            href: 'http://capradio.org'
         }, h('img.header-logo', {
-            src: './assets/npr-color-100.png'
+            src: './assets/capradio-logo.png'
         }))
     ]
 };

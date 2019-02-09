@@ -28,7 +28,7 @@ PROJECT_FILENAME = 'anno_docs'
 
 # The name of the repository containing the source
 REPOSITORY_NAME = 'anno-docs'
-GITHUB_USERNAME = 'nprapps'
+GITHUB_USERNAME = 'capradio'
 REPOSITORY_URL = 'git@github.com:%s/%s.git' % (
     GITHUB_USERNAME, REPOSITORY_NAME)
 REPOSITORY_ALT_URL = None  # 'git@bitbucket.org:nprapps/%s.git' % REPOSITORY_NAME'
@@ -49,15 +49,15 @@ except ImportError:
 """
 DEPLOYMENT
 """
-AWS_S3_REGION = 'us-east-1'
+AWS_S3_REGION = 'us-west-1'
 
-PRODUCTION_S3_BUCKET = 'apps.npr.org'
+PRODUCTION_S3_BUCKET = 'projects.capradio.org'
 
-STAGING_S3_BUCKET = 'stage-apps.npr.org'
+STAGING_S3_BUCKET = 'capradio.dailygraphics.staging'
 
-ASSETS_S3_BUCKET = 'assets.apps.npr.org'
+ASSETS_S3_BUCKET = 'capradio.assets'
 
-ARCHIVE_S3_BUCKET = 'election-backup.apps.npr.org'
+ARCHIVE_S3_BUCKET = ''
 
 DEFAULT_MAX_AGE = 20
 

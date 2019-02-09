@@ -121,7 +121,7 @@ def deploy_folder(bucket_name, src, dst, headers={}, ignore=[]):
             to_deploy.append((src_path, dst_path))
 
     if bucket_name == app_config.STAGING_S3_BUCKET:
-        public = False
+        public = True
     else:
         public = True
     bucket = utils.get_bucket(bucket_name)
