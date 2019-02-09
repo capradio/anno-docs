@@ -148,6 +148,7 @@ def render_all():
         # NB: Flask response object has utf-8 encoded the data
         with open(filename, 'w') as f:
             f.write(content)
+    render_embeds()
 
 
 @task
@@ -209,3 +210,30 @@ def render_factcheck():
     parsed_factcheck = parse_factcheck()
     generate_views(['_factcheck', '_preview', '_share'],
                    parsed_factcheck)
+
+@task
+def render_embeds():
+    try:
+        os.makedirs('./www/embeds')
+    except OSError:
+        pass
+
+    parsed_factcheck = parse_factcheck()
+    from flask import g, url_for
+    view = app.__dict__['_embed']
+    contents = parsed_factcheck['contents']
+    annotations = [x for x in contents if x['type'] == 'annotation']
+    published = [x for x in annotations if x['published'] == 'yes']
+    slugs = [x['slug'] for x in published]
+    with _fake_context('/embeds/'):
+        g.slugs = slugs
+        response = app.__dict__['_embedlist']()
+        with open('./www/embeds/index.html', 'w') as f:
+            f.write(response.data)
+    for slug in slugs:
+        path = '{0}/embed'.format(slug) #url_for('_embed', slug=slug)
+        with _fake_context(path):
+            g.parsed_factcheck = parsed_factcheck
+            response = view(slug)
+            with open('./www/embeds/{0}.html'.format(slug), 'w') as f:
+                f.write(response.data)

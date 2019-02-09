@@ -11,9 +11,14 @@ See get_secrets() below for a fast way to access them.
 
 import logging
 import os
+import json
 
 from authomatic.providers import oauth2
 from authomatic import Authomatic
+
+with open("app_config.json") as f:
+    raw = f.read();
+    json_config = json.loads(raw)
 
 
 """
@@ -39,7 +44,7 @@ ASSETS_SLUG = 'anno-docs'
 
 # DEPLOY SETUP CONFIG
 FACTCHECKS_DIRECTORY_PREFIX = 'factchecks/'
-CURRENT_FACTCHECK = '20180117-api-test'
+CURRENT_FACTCHECK = '20190205-sotu-trump'
 try:
     # Override CURRENT FACTCHECK
     from local_settings import CURRENT_FACTCHECK
@@ -120,7 +125,9 @@ LOG_LEVEL = None
 """
 AUTHORS DICTIONARY
 """
-AUTHORS_GOOGLE_DOC_KEY = '1s0Vs4c41kp8mCvGnIFbdPK9YI9t18u0c2kvh6W1eZBw'
+# Complete
+AUTHORS_GOOGLE_DOC_KEY = json_config['authors_doc']
+
 try:
     # Override AUTHORS SPREADSHEET
     from local_settings import AUTHORS_GOOGLE_DOC_KEY
@@ -138,15 +145,15 @@ GOOGLE APPS SCRIPTS
 """
 
 PARENT_FOLDER_ID = '0B6C-jdxmvrJoM3JnZ1ZZUkhVQTg'
-GAS_LOG_KEY = '1tUxTFa2J5IKIlOMLop9IA9eaZ6uDDhgh6KwxeLdgQGU' # Google app script logs spreadsheet key
-TRANSCRIPT_GDOC_KEY = '1Byvot9oRRS9gvm2nTFuO4dLiyOrI02f-Xhy6pbMk34s' # Google app script google doc key
+GAS_LOG_KEY = json_config['log_sheet'] # Google app script logs spreadsheet key
+TRANSCRIPT_GDOC_KEY = json_config['transcript'] # Google app script google doc key
 SCRIPT_PROJECT_NAME = 'factcheck_scripts' # Google app scripts project name
-CSPAN = True
+CSPAN = json_config['cspan']
 """
 SHARING
 """
 SHARE_URL = 'http://%s/%s/' % (PRODUCTION_S3_BUCKET, PROJECT_SLUG)
-
+EMBEDDING_PAGE = 'https://www.npr.org/templates/story/story.php?storyId=690345256'
 
 """
 SERVICES
@@ -250,11 +257,11 @@ def configure_targets(deployment_target):
         DEBUG = False
         ASSETS_MAX_AGE = 86400
         # PRODUCTION DOCUMENT
-        # TRANSCRIPT_GDOC_KEY = '1g0zSDNhNJxQ-YkdX33TpGcrJmd9tbQ77ZpcjrT982Zs'
-        # PRODUCTION TEST DOCUMENT
-        TRANSCRIPT_GDOC_KEY = '1sK3FQ1VGh2bZZHoI2ontZWy_32UchVyIOZ2X5vbWJIo'
+        # TRANSCRIPT_GDOC_KEY = '1gibir_r26oZ0gi3ujlXHtzuzNusQZUUj0KCuhYCdJSk'
+        # PRODUCTION TEST DOCUMENT
+        # TRANSCRIPT_GDOC_KEY = '1sK3FQ1VGh2bZZHoI2ontZWy_32UchVyIOZ2X5vbWJIo'
         # PRODUCTION LOGS
-        GAS_LOG_KEY = '1tUxTFa2J5IKIlOMLop9IA9eaZ6uDDhgh6KwxeLdgQGU'
+        # GAS_LOG_KEY = '1tUxTFa2J5IKIlOMLop9IA9eaZ6uDDhgh6KwxeLdgQGU'
     elif deployment_target == 'staging':
         S3_BUCKET = STAGING_S3_BUCKET
         S3_BASE_URL = 'https://s3.amazonaws.com/%s/%s%s' % (
@@ -269,9 +276,9 @@ def configure_targets(deployment_target):
         DEBUG = True
         ASSETS_MAX_AGE = 20
         # STAGING DOCUMENT
-        TRANSCRIPT_GDOC_KEY = '17kCee04E25mRRB_pSxtB8rDbTRdoM794yQfy9Vzlw9I'
+        # TRANSCRIPT_GDOC_KEY = '1gibir_r26oZ0gi3ujlXHtzuzNusQZUUj0KCuhYCdJSk'
         # STAGING LOGS
-        GAS_LOG_KEY = '1vpRgWpqGqW1p3yMv6nCixAjczc8cJr_TlMCTg52Ch9I'
+        # GAS_LOG_KEY = '1vpRgWpqGqW1p3yMv6nCixAjczc8cJr_TlMCTg52Ch9I'
     else:
         S3_BUCKET = None
         S3_BASE_URL = '//127.0.0.1:8000'
@@ -283,9 +290,9 @@ def configure_targets(deployment_target):
         DEBUG = True
         ASSETS_MAX_AGE = 20
         # DEVELOPMENT DOCUMENT
-        TRANSCRIPT_GDOC_KEY = '18tK5NoJvSWNLhAbTByvZutHZMKqb9A1AnjeMXlE5Dd4'
+        # TRANSCRIPT_GDOC_KEY = '1gibir_r26oZ0gi3ujlXHtzuzNusQZUUj0KCuhYCdJSk'
         # DEVELOPMENT LOGS
-        GAS_LOG_KEY = '1I7IUCUJHIWLW3c_E-ukfqIp4QxuvUoHqbEQIlKQFC7w'
+        # GAS_LOG_KEY = '1I7IUCUJHIWLW3c_E-ukfqIp4QxuvUoHqbEQIlKQFC7w'
         # Override S3_BASE_URL to use another port locally for fab app
         try:
             from local_settings import S3_BASE_URL

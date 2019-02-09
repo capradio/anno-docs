@@ -1,15 +1,14 @@
 {
-  "name": "app-template",
+  "name": "anno-docs",
   "version": "1.0.0",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack --progress --watch --devtool source-map",
-    "build": "webpack -p --colors --progress --config 'webpack.production.config.js'",
-    "preinstall": "npm install -g concurrently"
-  },
+  "description": "",
+  "main": "webpack.config.js",
   "dependencies": {
+    "@nprapps/google-login": "^1.0.1",
+    "clasp": "^1.0.0",
     "csv-parse": "^1.1.9",
     "forever": "^0.15.3",
+    "googleapis": "^36.0.0",
     "minimist": "^1.2.0",
     "moment": "^2.15.0",
     "moment-timezone": "^0.5.5",
@@ -27,9 +26,28 @@
     "babel-preset-es2015": "^6.14.0",
     "fontello-cli": "~0.4.0",
     "json-loader": "^0.5.4",
-    "less": "~1.7.0",
+    "less": "^1.7.5",
     "uglify-js": "^2.7.3",
-    "universal-jst": "~1.0.5",
+    "universal-jst": "^1.0.5",
     "webpack": "^1.13.2"
-  }
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack --progress --watch --devtool source-map",
+    "build": "webpack -p --colors --progress --config 'webpack.production.config.js'",
+    "preinstall": "npm install -g concurrently",
+    "gs:push_cron": "cd google_apps_script && clasp push",
+    "gs:push_addon": "cd add-on && clasp push",
+    "gs:setup": "node fab setup"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nprapps/anno-docs.git"
+  },
+  "author": "nprapps",
+  "license": "",
+  "bugs": {
+    "url": "https://github.com/nprapps/anno-docs/issues"
+  },
+  "homepage": "https://github.com/nprapps/anno-docs#readme"
 }
