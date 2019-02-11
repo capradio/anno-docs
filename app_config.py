@@ -44,7 +44,7 @@ ASSETS_SLUG = 'anno-docs'
 
 # DEPLOY SETUP CONFIG
 FACTCHECKS_DIRECTORY_PREFIX = 'factchecks/'
-CURRENT_FACTCHECK = '20190205-sotu-trump'
+CURRENT_FACTCHECK = 'sots2019'
 try:
     # Override CURRENT FACTCHECK
     from local_settings import CURRENT_FACTCHECK
@@ -153,7 +153,7 @@ CSPAN = json_config['cspan']
 SHARING
 """
 SHARE_URL = 'http://%s/%s/' % (PRODUCTION_S3_BUCKET, PROJECT_SLUG)
-EMBEDDING_PAGE = 'https://www.npr.org/templates/story/story.php?storyId=690345256'
+EMBEDDING_PAGE = ''
 
 """
 SERVICES
@@ -204,10 +204,7 @@ LOG_FORMAT = '%(levelname)s:%(name)s:%(asctime)s: %(message)s'
 Utilities
 """
 SPEAKERS = {
-    'HILLARY CLINTON': 'speaker dem',
-    'TIM KAINE': 'speaker dem',
-    'DONALD TRUMP': 'speaker gop',
-    'MIKE PENCE': 'speaker gop'
+    'GOV. GAVIN NEWSOM': 'governor dem',
 }
 
 def get_secrets():
