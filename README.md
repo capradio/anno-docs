@@ -100,12 +100,7 @@ The project contains the following folders and important files:
 Bootstrap the project
 ---------------------
 
-Node.js is required for the static asset pipeline. If you don't already have it, get it like this:
-
-```
-brew install node
-curl https://npmjs.org/install.sh | sh
-```
+Node.js is required for the static asset pipeline and for talking to the Apps Script API. If you don't already have it, get it from [nvm](https://github.com/creationix/nvm):
 
 Then bootstrap the project:
 
@@ -120,6 +115,7 @@ Before you can run the next step of the bootstrap you will need to setup Google 
 
 ```
 fab update
+node fab login
 ```
 
 **Problems installing requirements?** You may need to run the pip command as ``ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future pip install -r requirements.txt`` to work around an issue with OSX.
@@ -269,33 +265,25 @@ Here are those three files for each of our environments:
 Google Apps Scripts Development
 -------------------------------
 
-We use our codebase stored on github as the master for the Google Apps Scripts code. We have created a series of Fabric commands to ease the workflow of updating the actual code run inside google drive.
+We use our codebase stored in the google_apps_script folder as the master for the Google Apps Scripts code. These scripts can be uploaded and updated using the [Clasp](https://github.com/google/clasp) utility. Update the .clasp.json files in that directory to point to the GAS project where you want to push and pull code.
 
-## List projects
+This project used to use Fab commands to update the remote scripts, but in the transition to NPR's organization-wide Google accounts, those things broke, so we switched to Clasp and Node's googleapis module. However, the original Fab commands are still there, if you want to use them. 
 
-```
+```sh
+# show all projects available for your authenticated user
 fab gs.list_projects
-```
 
-It will return a complete list of Google Apps Script projects. It accepts and optional owner parameter to filter out the results to a given owner. for example the following command will return only the projects that you have created:
-
-```
+# show all projects specifically owned by your user
 fab gs.list_projects:me
-```
 
-## Upsert project
+# push local code to the Apps Script project
+fab [environment] gs.upsert
 
-If you want to update local changes to a Google Apps Script Project you can run:
-
-```
-fab [ENVIRONMENT] gs.upsert
-```
-
-Where `ENVIRONMENT` can be: `development`, `staging` or `production`. Depending on the environment passed the command will update the appropriate Google App Script Project using `app_config` properties. For development it would be:
+# set script properties on the remote project
+fab [environment] gs.execute_setup
 
 ```
-fab development gs.upsert
-```
+
 
 Google Apps Scripts Execution API
 ---------------------------------
@@ -314,19 +302,17 @@ It is better to follow the documentation but let me throw in some tips that will
 
 Done that? Phewww that was crazy, right....now let's enjoy our work.
 
-Now we can run a fab command that will update the associated google doc key and associated log key to our Google Apps Script Project:
+Use the `fab.js` Node script to run and update code over the Apps Script API. You will need to be authenticated, with extra permissions (compared to the Dailygraphics Next rig). So before doing anything, authenticate Node against Google:
 
 ```
-fab [ENVIRONMENT] gs.execute_setup
+node fab login
 ```
 
-Where `ENVIRONMENT` can be: `development`, `staging` or `production`. Depending on the environment passed the command will update the appropriate Google App Script Project using `app_config` properties. For development it would be:
+At that point, you can actually talk to the remote API. Set up the script properties for the project, set the correct values in `app_config.json`, and then execute:
 
 ```
-fab development gs.execute_setup
+node fab setup
 ```
-
-We use our codebase stored on github as the master for the Google Apps Scripts code. We have created a series of Fabric commands to ease the workflow of updating the actual code run inside google drive.
 
 Run CSPAN Transcript Test
 -------------------------
@@ -362,15 +348,16 @@ fab development gs.execute_setup:cspan=True,cspan_server="http://[SEED].ngrok.io
 
 In staging and production we do have servers that have a public facing url that we can directly use for our CSPAN live transcript.
 
-First we need to set cspan transcription on our google app script
+First we need to set cspan transcription on our google app script, by setting `"cspan": true` in `app_config.json`, and then executing:
+
 ```
-fab [ENVIRONMENT] gs.execute_setup:cspan=True
+node fab setup
 ```
 
 After that, we just need to fire up the node server
 
 ```
-fab [ENVRIRORNMENT] servers.cspan_start
+fab [ENVIRONMENT] servers.cspan_start
 ```
 
 *IMPORTANT Note: The cspan stream will not stop automatically so we need to be careful and stop the cspan server manually once the desired broadcast has ended*
