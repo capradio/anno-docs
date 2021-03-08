@@ -1,3 +1,5 @@
+_The tl;dr quickstart guide can be found [here](https://docs.google.com/document/d/1tHLkywjzPsjdg82a0pkWC46mDfSD6eS57pH8oJcLo5k/edit?usp=sharing). It contains helpful tips about how to create and run the annotation rig. If you want to understand the ins and outs of its architecture, see below_
+
 Anno-docs
 ========================
 
@@ -50,7 +52,7 @@ _Note: On February 2017 we have added the ability to use CSPAN through [openedca
 Examples
 --------
 
-* [Fact Check: Trump And Clinton Debate For The First Time](http://www.npr.org/2016/09/26/495115346/fact-check-first-presidential-debate)
+* [FACT CHECK: Trump Delivers State Of The Union To Tense, Partisan Congress](https://www.npr.org/2020/02/04/800983688/fact-check-president-trump-delivers-his-3rd-state-of-the-union-address)
 
 Assumptions
 -----------

@@ -46,7 +46,6 @@ ASSETS_SLUG = 'anno-docs'
 FACTCHECKS_DIRECTORY_PREFIX = 'factchecks/'
 
 CURRENT_FACTCHECK = 'sots2020'
-
 try:
     # Override CURRENT FACTCHECK
     from local_settings import CURRENT_FACTCHECK
