@@ -310,7 +310,7 @@ const renderHeaderContentsBefore = function(data) {
         h('a', {
             href: 'http://capradio.org'
         }, h('img.header-logo', {
-            src: './assets/capradio-logo.png'
+            src: './assets/CR_logo_HORZ_WHITE.png'
         })),
         h('h2.header-title', 'CapRadio Live Annotation'),
         h('p.header-info', 'Once the event has started, a live transcript will appear below.'),
@@ -326,7 +326,7 @@ const renderHeaderContentsDuring = function(data) {
         h('a', {
             href: 'http://capradio.org'
         }, h('img.header-logo', {
-            src: './assets/capradio-logo.png'
+            src: './assets/CR_logo_HORZ_WHITE.png'
         })),
         h('h2.header-title', 'CapRadio Live Annotation'),
         h('p.header-info', [
@@ -344,7 +344,7 @@ const renderHeaderContentsAfter = function(data) {
         h('a', {
             href: 'http://capradio.org'
         }, h('img.header-logo', {
-            src: './assets/capradio-logo.png'
+            src: './assets/CR_logo_HORZ_WHITE.png'
         }))
     ]
 };
